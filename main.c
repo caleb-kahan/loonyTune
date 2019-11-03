@@ -98,17 +98,7 @@ struct Song_node *find_unique(Struct Song_node *list, char *artist, char*name){
   }
   return NULL;
 }
-struct Song_node *find_unique(Struct Song_node *list, char *artist, char*name){
-  struct Song_node *currentSong_node = front;
-  while(currentSong_node){
-    if(str_cmp(currentSong_node->artist,artist) && str_cmp(currentSong_node->name,name)){
-      return currentSong_node;
-    }
-    currentSong_node = currentSong_node->next;
-  }
-  return NULL;
-}
-struct Song_node *find_unique(Struct Song_node *list, char *artist, char*name){
+struct Song_node *find_artist(Struct Song_node *list, char *artist, char*name){
   struct Song_node *currentSong_node = front;
   while(currentSong_node){
     if(str_cmp(currentSong_node->artist,artist)){
