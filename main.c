@@ -15,26 +15,29 @@ int song_cmp(struct Song_node *one, struct Song_node *two){
   if(str_cmp(one->name,two->name)){
     return str_cmp(one->artist,two->artist)){
   }
-  return str_cmp()
+  return str_cmp(one->name,two->name);
 }
 struct Song_node * insert_ordered(struct Song_node *front, struct Song_node *newNode){
     struct Song_node *newSong = malloc(sizeof(struct Song_node));
     *newSong = *newNode;
+    if(song_cmp(front,newSong)>=0){
+      newSong->next = front;
+      return newSong;
+    }
     //newSong->name = newNode->name;
     //newSong->artist = newNode->artist;
     //newSong->next = newNode->next;
     struct node *currentNode = front;
     while(currentSong_node->next){
-      if(strcmp(currentSong_node->name, newSong ->name)){
-          struct Song_node *deadSong_node = currentSong_node->next;
+      if(song_cmp(currentSong_node->next,newSong)>=0){
+          newSong->next = currentSong_node->next;
+          currentSong->next = newSong;
           return front;
       }
-      if(strcmp())
       currentSong_node = currentSong_node->next;
     }
-    newSong->i = data;
-    newSong->next = nody;
-    return newSong;
+    currentSong->next = newSong;
+    return front;
 }
 
 struct Song_node *remove_Song_node(struct Song_node *front, int data){
