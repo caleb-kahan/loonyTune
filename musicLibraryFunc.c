@@ -11,7 +11,7 @@ struct Song_node{
 struct Song_node * table[27];
 
 struct Song_node * [] add_song(Song_node *[] library, Song_node *songy){
-  int index = findIndex(*songy);
+  int index = findIndex(songy);
   library[index] = insert_ordered(library[index],songy);
   return library;
 }
@@ -55,5 +55,23 @@ int findIndex(char c){
   return index;
 }
 void shuffle(){
-  
+  int i;
+  srand( time(NULL) );
+  for(i=0;i<3;i++){
+    int index = rand() %27;
+    print_node(find_random(library[index]));
+    printf("\n");
+  }
+}
+struct Song_node * [] delete_song(Song_node *[] library, Song_node *songy){
+  int index = findIndex(songy);
+  library[index] = remove_Song_node(library[index],songy);
+  return library;
+}
+struct Song_node * [] clear_library(Song_node *[] library){
+  int i;
+  for(i=0;i<27;i++){
+    library[i] = free_list(library[i]);
+  }
+  return library;
 }
