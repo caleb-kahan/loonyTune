@@ -8,4 +8,10 @@ void print_node(struct Song_node *nody);
 struct Song_node *find_unique(struct Song_node *list, char *artist, char*name);
 struct Song_node *find_artist(struct Song_node *front, char *artist);
 struct Song_node *find_random(struct Song_node *list);
-int count(struct Song_node *list);
+int countSongs(struct Song_node *front);
+
+struct Song_node{
+  char name[100];
+  char artist[100];
+  struct Song_node *next;
+};
