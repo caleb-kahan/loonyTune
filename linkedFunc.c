@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "musicHead.h"
 
 struct Song_node * insert_front(struct Song_node *nody, char *name, char *artist){
     struct Song_node *newSong = malloc(sizeof(struct Song_node));
-    newSong->name = name;
-    newSong->artist = artist;
+    strcpy(newSong->name, name);
+    strcpy(newSong->artist, artist);
     newSong->next = nody;
     return newSong;
 }
 int song_cmp(struct Song_node *one, struct Song_node *two){
-  if(str_cmp(one->name,two->name)){
-    return str_cmp(one->artist,two->artist)){
+  if(strcmp(one->name,two->name)){
+    return strcmp(one->artist,two->artist);
   }
-  return str_cmp(one->name,two->name);
+  return strcmp(one->name,two->name);
 }
 struct Song_node * insert_ordered(struct Song_node *front, struct Song_node *newNode){
     struct Song_node *newSong = malloc(sizeof(struct Song_node));
@@ -83,27 +84,27 @@ void print_list(struct Song_node *nody){
 void print_node(struct Song_node *nody){
   printf("%s: %s", nody->name, nody->artist);
 }
-struct Song_node *find_unique(Struct Song_node *list, char *artist, char*name){
+struct Song_node *find_unique(struct Song_node *list, char *artist, char*name){
   struct Song_node *currentSong_node = front;
   while(currentSong_node){
-    if(str_cmp(currentSong_node->artist,artist) && str_cmp(currentSong_node->name,name)){
+    if(strcmp(currentSong_node->artist,artist) && strcmp(currentSong_node->name,name)){
       return currentSong_node;
     }
     currentSong_node = currentSong_node->next;
   }
   return NULL;
 }
-struct Song_node *find_artist(Struct Song_node *front, char *artist){
+struct Song_node *find_artist(struct Song_node *front, char *artist){
   struct Song_node *currentSong_node = front;
   while(currentSong_node){
-    if(str_cmp(currentSong_node->artist,artist)){
+    if(strcmp(currentSong_node->artist,artist)){
       return currentSong_node;
     }
     currentSong_node = currentSong_node->next;
   }
   return NULL;
 }
-struct Song_node *find_random(Struct Song_node *list){
+struct Song_node *find_random(struct Song_node *list){
   int count = count(list);
   srand( time(NULL) );
   int index = rand() %count;
@@ -115,7 +116,7 @@ struct Song_node *find_random(Struct Song_node *list){
   }
   return currentSong_node;
 }
-int count(Struct Song_node *list){
+int count(struct Song_node *list){
   int count = 0;
   struct Song_node *currentSong_node = front;
   while(currentSong_node){

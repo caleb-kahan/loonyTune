@@ -5,6 +5,6 @@
 #include "musicHead.h"
 
 int main(){
-
+  struct Song_node * table[27];
   return 0;
 }

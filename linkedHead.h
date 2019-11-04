@@ -5,7 +5,7 @@ struct Song_node *remove_Song_node(struct Song_node *front, struct Song_node *so
 struct Song_node * free_list(struct Song_node *list);
 void print_list(struct Song_node *nody);
 void print_node(struct Song_node *nody);
-struct Song_node *find_unique(Struct Song_node *list, char *artist, char*name);
-struct Song_node *find_artist(Struct Song_node *front, char *artist);
-struct Song_node *find_random(Struct Song_node *list);
-int count(Struct Song_node *list);
+struct Song_node *find_unique(struct Song_node *list, char *artist, char*name);
+struct Song_node *find_artist(struct Song_node *front, char *artist);
+struct Song_node *find_random(struct Song_node *list);
+int count(struct Song_node *list);
