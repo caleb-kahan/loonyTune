@@ -5,7 +5,7 @@
 #include "musicHead.h"
 
 struct Song_node ** add_song(struct Song_node * library [], char *name, char *artist){
-  int index = findIndexSong(artist[0]);
+  int index = findIndexChar(artist[0]);
   library[index] = insert_ordered(library[index],name,artist);
   return library;
 }

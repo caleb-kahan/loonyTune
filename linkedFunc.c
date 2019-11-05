@@ -13,7 +13,7 @@ struct Song_node * insert_front(struct Song_node *nody, char *name, char *artist
     return newSong;
 }
 int song_cmp(struct Song_node *one, struct Song_node *two){
-  if(strcmp(one->artist,two->artist)){
+  if(! strcmp(one->artist,two->artist)){
     return strcmp(one->name,two->name);
   }
   return strcmp(one->artist,two->artist);
@@ -22,6 +22,7 @@ struct Song_node * insert_ordered(struct Song_node *front,char *name, char *arti
     struct Song_node *newSong = malloc(sizeof(struct Song_node));
     strcpy(newSong->name, name);
     strcpy(newSong->artist, artist);
+    newSong->next = 0;
 
     if(song_cmp(front,newSong)>=0){
       newSong->next = front;
