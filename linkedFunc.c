@@ -5,7 +5,7 @@
 #include "linkedHead.h"
 
 
-struct Song_node * insert_front(struct Song_node *nody, char *name, char *artist){
+struct Song_node * insert_front(struct Song_node *nody, char *artist, char *name){
     struct Song_node *newSong = malloc(sizeof(struct Song_node));
     strcpy(newSong->name, name);
     strcpy(newSong->artist, artist);
@@ -18,12 +18,14 @@ int song_cmp(struct Song_node *one, struct Song_node *two){
   }
   return strcmp(one->artist,two->artist);
 }
-struct Song_node * insert_ordered(struct Song_node *front,char *name, char *artist){
+struct Song_node * insert_ordered(struct Song_node *front,char *artist, char *name){
     struct Song_node *newSong = malloc(sizeof(struct Song_node));
     strcpy(newSong->name, name);
     strcpy(newSong->artist, artist);
     newSong->next = 0;
-
+    if(! front){
+      return newSong;
+    }
     if(song_cmp(front,newSong)>=0){
       newSong->next = front;
       return newSong;
@@ -45,24 +47,33 @@ struct Song_node * insert_ordered(struct Song_node *front,char *name, char *arti
 }
 
 struct Song_node *remove_Song_node(struct Song_node *front, struct Song_node *soon_dead_node){
-  if(song_cmp(front,soon_dead_node)){
+  if(! soon_dead_node){
+    printf("Song not found\n");
+    print_list(front);
+    return front;
+  }
+  if(! song_cmp(front,soon_dead_node)){
       struct Song_node *returner = front->next;
       free(front);
+      print_list(returner);
       return returner;
   }
   struct Song_node *currentSong_node = front;
   while(currentSong_node->next){
-    if(song_cmp(currentSong_node->next,soon_dead_node)){
+    if(! song_cmp(currentSong_node->next,soon_dead_node)){
         struct Song_node *deadSong_node = currentSong_node->next;
         if(currentSong_node->next->next)
           currentSong_node->next = currentSong_node->next->next;
         else
           currentSong_node->next = NULL;
         free(deadSong_node);
+        print_list(front);
         return front;
     }
     currentSong_node = currentSong_node->next;
   }
+  printf("Song not found");
+  print_list(front);
   return front;
 }
 struct Song_node * free_list(struct Song_node *list){
@@ -72,6 +83,8 @@ struct Song_node * free_list(struct Song_node *list){
     printf("\n");
     list = remove_Song_node(list,list);
   }
+  printf("list after free_list: ");
+  print_list(list);
   return list;
 }
 void print_list(struct Song_node *nody){
@@ -82,18 +95,22 @@ void print_list(struct Song_node *nody){
         nody = nody->next;
       }
       print_node(nody);
-      printf(" |\n");
+      printf(" |\n\n");
     }
     else
       printf("NO SONGS!\n");
 }
 void print_node(struct Song_node *nody){
-  printf("%s: %s", nody->name, nody->artist);
+  if(! nody){
+    printf("EMPTY NODE");
+    return ;
+  }
+  printf("%s: %s", nody->artist, nody->name);
 }
 struct Song_node *find_unique(struct Song_node *list, char *artist, char*name){
   struct Song_node *currentSong_node = list;
   while(currentSong_node){
-    if(strcmp(currentSong_node->artist,artist) && strcmp(currentSong_node->name,name)){
+    if(! strcmp(currentSong_node->artist,artist) && ! strcmp(currentSong_node->name,name)){
       return currentSong_node;
     }
     currentSong_node = currentSong_node->next;
@@ -103,7 +120,7 @@ struct Song_node *find_unique(struct Song_node *list, char *artist, char*name){
 struct Song_node *find_artist(struct Song_node *front, char *artist){
   struct Song_node *currentSong_node = front;
   while(currentSong_node){
-    if(strcmp(currentSong_node->artist,artist)){
+    if(! strcmp(currentSong_node->artist,artist)){
       return currentSong_node;
     }
     currentSong_node = currentSong_node->next;
@@ -112,7 +129,6 @@ struct Song_node *find_artist(struct Song_node *front, char *artist){
 }
 struct Song_node *find_random(struct Song_node *front){
   int total = countSongs(front);
-  srand( time(NULL) );
   int index = rand() %total;
   int i = 0;
   struct Song_node *currentSong_node = front;
@@ -127,6 +143,7 @@ int countSongs(struct Song_node *front){
   struct Song_node *currentSong_node = front;
   while(currentSong_node){
       total++;
+      currentSong_node = currentSong_node->next;
   }
   return total;
 }
