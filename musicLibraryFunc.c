@@ -6,7 +6,7 @@
 
 struct Song_node ** add_song(struct Song_node * library [], char *artist, char *name){
   int index = findIndexChar(artist[0]);
-  library[index] = insert_ordered(library[index],name,artist);
+  library[index] = insert_ordered(library[index],artist,name);
   return library;
 }
 struct Song_node * song_search(struct Song_node * library [], char *artist, char *name){
@@ -20,6 +20,11 @@ struct Song_node * artist_search(struct Song_node * library [], char *artist){
 }
 void print_letter(struct Song_node * library [], char c){
   int index = findIndexChar(c);
+  if(index == 26){
+    printf("* list\n");
+  }
+  else
+    printf("%c list\n",c);
   print_list(library[index]);
 }
 void print_artist(struct Song_node * library [], char *artist){
@@ -28,6 +33,8 @@ void print_artist(struct Song_node * library [], char *artist){
   while(start){
     print_node(start);
     printf("\n");
+    if(! start ->next)
+      break;
     start = start->next;
     start = find_artist(start,artist);
   }
@@ -35,7 +42,8 @@ void print_artist(struct Song_node * library [], char *artist){
 void print_library(struct Song_node * library []){
   char a;
   for(a='a';a<='z'+1;a++){
-    print_letter(library,a);
+    if(countSongs(library[a-'a']))
+      print_letter(library,a);
   }
 }
 int findIndexSong(struct Song_node *nody){

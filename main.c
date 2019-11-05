@@ -94,12 +94,16 @@ int main() {
   printf("\n\nTesting Remove_Node:\n\n");
   printf("Removing [maroon 5 : payphone]\n");
   og = remove_Song_node(og,find_unique(og,"maroon 5", "payphone"));
+  print_list(og);
   printf("Removing [maroon 5 : payphone]\n");
   og = remove_Song_node(og,find_unique(og,"maroon 5", "payphone"));
+  print_list(og);
   printf("Removing [taylor swift : you need to calm down]\n");
   og = remove_Song_node(og,find_unique(og,"taylor swift", "you need to calm down"));
+  print_list(og);
   printf("Removing [queen: radio ga ga]\n");
   og = remove_Song_node(og,find_unique(og,"queen", "radio ga ga"));
+  print_list(og);
   printf("\n\nTesting Free List Again:\n\n");
   free_list(og);
 
@@ -109,7 +113,7 @@ int main() {
   printf("%d\n", findIndexChar('c'));
   printf("%d\n", findIndexChar('z'));
   printf("%d\n", findIndexChar('$'));
-  printf("\n\nTesting Add Song:\n\n");
+  printf("\n\nAdding A Bunch of Songs:\n\n");
   memcpy(table,add_song(table,"lady gaga", "alexandro"),sizeof(struct Song_node * [27]));
   memcpy(table,add_song(table,"lady gaga", "bad romance"),sizeof(struct Song_node * [27]));
   memcpy(table,add_song(table,"lady gaga", "bad romance"),sizeof(struct Song_node * [27]));
@@ -142,6 +146,38 @@ int main() {
   memcpy(table,add_song(table,"marshmello","stars"),sizeof(struct Song_node * [27]));
   memcpy(table,add_song(table,"marshmello","summer"),sizeof(struct Song_node * [27]));
   memcpy(table,add_song(table,"marshmello","together"),sizeof(struct Song_node * [27]));
+  printf("\n\nTesting Print Library:\n\n");
+  print_library(table);
+  printf("\n\nTesting Print Letter:\n\n");
+  print_letter(table,'m');
+  printf("\n\nTesting Song Search:\n\n");
+  printf("looking for [queen : we will rock you]\n");
+  print_node(song_search(table,"queen","we will rock you"));
+  printf("\nlooking for [caleb : not getting a late on this assignment]\n");
+  print_node(song_search(table,"caleb","not getting a late on this assignment"));
+  printf("\n\nTesting Artist Search:\n\n");
+  printf("looking for [marshmello]\n");
+  print_list(artist_search(table,"marshmello"));
+  printf("looking for [michael jackson]\n");
+  print_list(artist_search(table,"michael jackson"));
+  printf("looking for [caleb]\n");
+  print_list(artist_search(table,"caleb"));
+  printf("\n\nTesting Remove Song:\n\n");
+  printf("removing [avicii:broken arrows]\n");
+  memcpy(table,delete_song(table,song_search(table,"avicii","broken arrows")),sizeof(struct Song_node * [27]));
+  print_library(table);
+  printf("\n\n//////////////////////removing [katy perry:look what you made me do]/////////////////////////\n");
+  memcpy(table,delete_song(table,song_search(table,"katy perry","look what you made me do")),sizeof(struct Song_node * [27]));
+  print_library(table);
+
+
+
+
+
+
+
+
+
 
 
 

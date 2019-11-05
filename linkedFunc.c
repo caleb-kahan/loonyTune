@@ -49,13 +49,11 @@ struct Song_node * insert_ordered(struct Song_node *front,char *artist, char *na
 struct Song_node *remove_Song_node(struct Song_node *front, struct Song_node *soon_dead_node){
   if(! soon_dead_node){
     printf("Song not found\n");
-    print_list(front);
     return front;
   }
   if(! song_cmp(front,soon_dead_node)){
       struct Song_node *returner = front->next;
       free(front);
-      print_list(returner);
       return returner;
   }
   struct Song_node *currentSong_node = front;
@@ -67,13 +65,11 @@ struct Song_node *remove_Song_node(struct Song_node *front, struct Song_node *so
         else
           currentSong_node->next = NULL;
         free(deadSong_node);
-        print_list(front);
         return front;
     }
     currentSong_node = currentSong_node->next;
   }
   printf("Song not found");
-  print_list(front);
   return front;
 }
 struct Song_node * free_list(struct Song_node *list){
@@ -102,7 +98,7 @@ void print_list(struct Song_node *nody){
 }
 void print_node(struct Song_node *nody){
   if(! nody){
-    printf("EMPTY NODE");
+    printf("SONG NOT HERE");
     return ;
   }
   printf("%s: %s", nody->artist, nody->name);
