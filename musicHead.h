@@ -9,3 +9,4 @@ int findIndexChar(char c);
 void shuffle(struct Song_node * library []);
 struct Song_node ** delete_song(struct Song_node * library [], struct Song_node *songy);
 struct Song_node ** clear_library(struct Song_node * library []);
+void shuffleHelper(struct Song_node * library [], int counts [] , int total);

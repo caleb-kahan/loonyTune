@@ -79,8 +79,6 @@ struct Song_node * free_list(struct Song_node *list){
     printf("\n");
     list = remove_Song_node(list,list);
   }
-  printf("list after free_list: ");
-  print_list(list);
   return list;
 }
 void print_list(struct Song_node *nody){
@@ -124,6 +122,9 @@ struct Song_node *find_artist(struct Song_node *front, char *artist){
   return NULL;
 }
 struct Song_node *find_random(struct Song_node *front){
+  if(! front){
+    return NULL;
+  }
   int total = countSongs(front);
   int index = rand() %total;
   int i = 0;

@@ -6,18 +6,6 @@
 #include "musicHead.h"
 
 int main() {
-  //char *name =
-  //char *artist =
-
-  //struct Song_node comp1 = {"CAleb","blah",0};
-  //print_node(&comp1);
-
-  //struct Song_node *comp2 ;
-  //printf("%d",song_cmp(comp1,comp2));
-  //og = insert_front(og,"lady gaga", "Radio");
-  //og = insert_front(og,"lady gaga", "Bad Romance");
-  //og = insert_ordered(og,"lady gaga","Zot
-
   struct Song_node *og = 0;
   printf("Testing print node with empty node: ");
   print_node(og);
@@ -37,6 +25,8 @@ int main() {
   print_list(og);
   printf("Testing free_list\n");
   og = free_list(og);
+  printf("list after free_list: ");
+  print_list(og);
   og = 0;
   og = insert_ordered(og,"queen","bohemian rhapsody");
   og = insert_ordered(og,"lady gaga","applause");
@@ -105,7 +95,10 @@ int main() {
   og = remove_Song_node(og,find_unique(og,"queen", "radio ga ga"));
   print_list(og);
   printf("\n\nTesting Free List Again:\n\n");
-  free_list(og);
+  og = free_list(og);
+  printf("list after free_list: ");
+  print_list(og);
+
 
   printf("\n\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\nMusic Library Testing\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n");
   struct Song_node * table[27] = {0};
@@ -169,17 +162,18 @@ int main() {
   printf("\n\n//////////////////////removing [katy perry:look what you made me do]/////////////////////////\n");
   memcpy(table,delete_song(table,song_search(table,"katy perry","look what you made me do")),sizeof(struct Song_node * [27]));
   print_library(table);
-
-
-
-
-
-
-
-
-
-
-
-
-  //print_list(og);
+  printf("\n\nTesting Print Artist:\n\n");
+  printf("Printing [michael jackson]\n");
+  print_artist(table, "michael jackson");
+  printf("Printing [marshmello]\n");
+  print_artist(table, "marshmello");
+  printf("\n\nTesting Shuffle:\n\n");
+  shuffle(table);
+  printf("\n\nTesting Clearing Library:\n\n");
+  memcpy(table,clear_library(table),sizeof(struct Song_node * [27]));
+  printf("\n\nAdding Songs To Empty Library:\n\n");
+  memcpy(table,add_song(table,"ME","im done"),sizeof(struct Song_node * [27]));
+  print_library(table);
+  printf("\n\nCleaning Up:\n\n");
+  memcpy(table,clear_library(table),sizeof(struct Song_node * [27]));
 }

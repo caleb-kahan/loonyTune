@@ -58,11 +58,28 @@ int findIndexChar(char c){
 }
 void shuffle(struct Song_node * library []){
   int i;
+  int counts[27] = {0};
+  int total = 0;
+  for(i=0;i<27;i++){
+    counts[i]= countSongs(library[i]);
+    total+= counts[i];
+  }
   srand( time(NULL) );
-  for(i=0;i<3;i++){
-    int index = rand() %27;
-    print_node(find_random(library[index]));
-    printf("\n");
+  for(i =0;i<5;i++){
+    shuffleHelper(library,counts,total);
+  }
+}
+void shuffleHelper(struct Song_node * library [], int counts [] , int total){
+  int picker = rand() % total;
+  total = 0;
+  int i;
+  for(i=0;i<27;i++){
+    total+=counts[i];
+    if(picker<total){
+      print_node(find_random(library[i]));
+      printf("\n");
+      return;
+    }
   }
 }
 struct Song_node ** delete_song(struct Song_node * library [], struct Song_node *songy){
